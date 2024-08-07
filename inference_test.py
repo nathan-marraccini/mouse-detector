@@ -1,12 +1,13 @@
 # import the inference-sdk
 from inference_sdk import InferenceHTTPClient
 
-# initialize the client
-CLIENT = InferenceHTTPClient(
-    api_url="http://localhost:9001",
-    api_key="fZkwfr3c0A2hZjtLSdM8"
+client = InferenceHTTPClient(
+    api_url="https://detect.roboflow.com",
+    api_key="V2lTkhacO8LY3TPugNVO"
 )
 
-# infer on a local image
-result = CLIENT.infer("https://imgix.bustle.com/mic/cwba7skl4g0zwiom2yvlrghrqtsw11dkkto7lxucifk92qqjmkitebtie2zwqwiy.jpg", model_id="rps-nvidia-demo/1")
-print(result)
+result = client.run_workflow(
+    workspace_name="hunter-diminick",
+    workflow_id="custom-workflow",
+    images={"image": "YOUR_IMAGE.jpg"}
+)
