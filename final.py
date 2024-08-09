@@ -5,13 +5,14 @@ import imutils
 import datetime
 from inference_sdk import InferenceHTTPClient
 from roboflow import Roboflow
+import tempfile
 
 rf = Roboflow(api_key="V2lTkhacO8LY3TPugNVO")
 
 print(rf.workspace())
 
 workspaceId = 'hunter-diminick'
-projectId = 'mice-detection-flgeh/2'
+projectId = 'mice-detection-flgeh'
 project = rf.workspace(workspaceId).project(projectId)
 
 # Open the camera
@@ -70,9 +71,9 @@ while True:
         # Compute the bounding box for the contour, draw it on the frame, and update the text
         (x, y, w, h) = cv2.boundingRect(c)
         text = "Mouse"
-        project.upload(
-            image_path=frame,
-        )
+        with tempfile.NamedTemporaryFile(suffix=".jpg") as temp:
+            cv2.imwrite(temp.name, frame)
+            project.upload(image_path=temp.name)
         # result = client.run_workflow(
         #     workspace_name="hunter-diminick",
         #     workflow_id="custom-workflow",
@@ -86,7 +87,7 @@ while True:
     cv2.putText(frame, datetime.datetime.now().strftime("%A %d %B %Y %I:%M:%S%p"), (10, frame.shape[0] - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.35, (0, 0, 255), 1)
 
     # Show the frame
-    cv2.imshow("Security Feed", frame)
+    # cv2.imshow("Security Feed", frame)
 
     # Break the loop on 'q' key press
     if cv2.waitKey(1) & 0xFF == ord('q'):
