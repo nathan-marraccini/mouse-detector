@@ -71,13 +71,7 @@ while True:
         (x, y, w, h) = cv2.boundingRect(c)
         text = "Mouse"
         project.upload(
-            image_path="UPLOAD_IMAGE.jpg",
-            batch_name="YOUR_BATCH_NAME",
-            split="train",
-            num_retry_uploads=3,
-            tag="YOUR_TAG_NAME",
-            sequence_number=99,
-            sequence_size=100
+            image_path=frame,
         )
         # result = client.run_workflow(
         #     workspace_name="hunter-diminick",
