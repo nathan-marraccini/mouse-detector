@@ -17,7 +17,7 @@ firstFrame = None
 min_area = 500  # Minimum area size for motion detection
 
 client = InferenceHTTPClient(
-    api_url="http://127.0.0.1:9001",
+    api_url="https://detect.roboflow.com",
     # api_url = 'https://detect.roboflow.com',
     api_key="V2lTkhacO8LY3TPugNVO"
 )
