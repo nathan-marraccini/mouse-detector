@@ -4,7 +4,15 @@ import numpy as np
 import imutils
 import datetime
 from inference_sdk import InferenceHTTPClient
+from roboflow import Roboflow
 
+rf = Roboflow(api_key="V2lTkhacO8LY3TPugNVO")
+
+print(rf.workspace())
+
+workspaceId = 'hunter-diminick'
+projectId = 'mice-detection-flgeh/2'
+project = rf.workspace(workspaceId).project(projectId)
 
 # Open the camera
 cap = cv2.VideoCapture(0)
@@ -62,13 +70,22 @@ while True:
         # Compute the bounding box for the contour, draw it on the frame, and update the text
         (x, y, w, h) = cv2.boundingRect(c)
         text = "Mouse"
-        result = client.run_workflow(
-            workspace_name="hunter-diminick",
-            workflow_id="custom-workflow",
-            images={"image": frame}
-            )
-        # cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
-        print(result)
+        project.upload(
+            image_path="UPLOAD_IMAGE.jpg",
+            batch_name="YOUR_BATCH_NAME",
+            split="train",
+            num_retry_uploads=3,
+            tag="YOUR_TAG_NAME",
+            sequence_number=99,
+            sequence_size=100
+        )
+        # result = client.run_workflow(
+        #     workspace_name="hunter-diminick",
+        #     workflow_id="custom-workflow",
+        #     images={"image": frame}
+        #     )
+        # # cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
+        # print(result)
 
     # Display the resulting frame with motion detection
     cv2.putText(frame, f"Room Status: {text}", (10, 20), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)
