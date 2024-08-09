@@ -67,7 +67,7 @@ while True:
             workflow_id="custom-workflow",
             images={"image": frame}
             )
-        cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
+        # cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
         print(result)
 
     # Display the resulting frame with motion detection
