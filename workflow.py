@@ -24,7 +24,7 @@ cap.set(cv2.CAP_PROP_FRAME_WIDTH, 1280)
 cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 720)
 
 firstFrame = None
-min_area = 10  # Minimum area size for motion detection
+min_area = 30  # Minimum area size for motion detection
 
 client = InferenceHTTPClient(
     api_url="https://detect.roboflow.com",
