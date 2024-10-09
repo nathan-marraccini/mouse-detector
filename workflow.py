@@ -7,12 +7,12 @@ from roboflow import Roboflow
 import tempfile
 from collections import deque
 
-rf = Roboflow(api_key="V2lTkhacO8LY3TPugNVO")
+rf = Roboflow(api_key="API_KEY")
 
 print(rf.workspace())
 
-workspaceId = 'hunter-diminick'
-projectId = 'mice-detection-flgeh'
+workspaceId = 'ROBOFLOW_WORKSPACE_ID'
+projectId = 'ROBOFLOW_PROJECT_ID'
 
 project = rf.workspace(workspaceId).project(projectId)
 
@@ -28,7 +28,7 @@ min_area = 30  # Minimum area size for motion detection
 
 client = InferenceHTTPClient(
     api_url="https://detect.roboflow.com",
-    api_key="V2lTkhacO8LY3TPugNVO",
+    api_key="API_KEY",
 )
 
 count = 2
@@ -87,7 +87,7 @@ while True:
             cv2.imwrite(temp.name, frame)
             # project.upload(image_path=temp.name)
             result = client.run_workflow(
-                workspace_name="hunter-diminick",
+                workspace_name= workspaceID,
                 workflow_id="mouse-workflow",
                 images={
                     "image": temp.name
